@@ -3,6 +3,8 @@
 # Link to Dashboard:
 https://d0rtilla.github.io/BellyButtonBiodiversity/
 
+# Description:
+
 In this assignment I was tasked with building an interactive dashboard to explore the [Belly Button Diversity Dataset](samples.json), which catalogs the various microbes living in human belly buttons.
 
 ## Dashboard Includes:
