@@ -21,7 +21,7 @@ function buildChart(patientID) {
             type:'bar',
             orientation:'h',
             marker: {
-                color: 'rgb(242, 113, 102)'
+                color: 'rgb(242, 110, 245)'
             },
         }]
 
@@ -44,7 +44,7 @@ function buildChart(patientID) {
             marker: {
                 color: otu_ids,
                 size: sample_values,
-                colorscale: 'Yl0rRd'
+                colorscale: 'Picnic'
             }
         }];
 
@@ -67,20 +67,20 @@ function buildChart(patientID) {
                 mode: "gauge+number",
                 gauge: {
                     bar: {color:'white'},
-                    axis: {range: [0, 9]},
+                    axis: {range: [null, 9]},
                     steps: [ 
-                        {range:[0,3], color:'rgb(253,162,73)'},
-                        {range: [3,6], color: 'rgb(242, 113, 102)'},
-                        {range: [6,9], color: 'rgb(166, 77, 104)'},
+                        {range:[0,3], color:'rgb(32,34,228)'},
+                        {range: [3,6], color: 'rgb(242, 110, 245)'},
+                        {range: [6,9], color: 'rgb(255, 16, 16)'},
                     ],
-                    threshold : { line : { color : 'white'}}
+                   
                 }
             }
         ];
 
         let gauge_layout = { width:500, height: 400, margin: { t: 0 , b: 0 }};
 
-        Plotly.newPlot('gauge', gauge_data, gauge_layout, );
+        Plotly.newPlot('gauge', gauge_data, gauge_layout );
     }))
 };
 

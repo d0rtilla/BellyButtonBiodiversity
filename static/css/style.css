@@ -1,5 +1,4 @@
-.panel-default > .panel-heading-custom {
-    background: #D24E68; color: #fff;
+.panel-primary > .panel-heading {
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
@@ -8,7 +7,7 @@
 }
 
 .jumbotron {
-    background-image: url("../img/header.jpg");
+    background-image: url('../img/header.jpeg');
     background-size: 100%;
     text-align:center;
 }
