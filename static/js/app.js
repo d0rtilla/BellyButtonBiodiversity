@@ -2,17 +2,17 @@ function buildChart(patientID) {
 
     d3.json('samples.json').then((data => {
 
-        var samples = data.samples
-        var metadata = data.metadata
-        var filteredMetadata = metadata.filter(bacteriaInfo => bacteriaInfo.id == patientID)[0]
+        let samples = data.samples
+        let metadata = data.metadata
+        let filteredMetadata = metadata.filter(bacteriaInfo => bacteriaInfo.id == patientID)[0]
 
-        var filteredSample = samples.filter(bacteriaInfo => bacteriaInfo.id == patientID) [0]
+        let filteredSample = samples.filter(bacteriaInfo => bacteriaInfo.id == patientID) [0]
 
-        var sample_values = filteredSample.sample_values
-        var otu_ids = filteredSample.otu_ids
-        var otu_labels = filteredSample.otu_labels
+        let sample_values = filteredSample.sample_values
+        let otu_ids = filteredSample.otu_ids
+        let otu_labels = filteredSample.otu_labels
 
-        var bar_data = [{
+        let bar_data = [{
 
             x:sample_values.slice(0,10).reverse(),
             y:otu_ids.slice(0,10).map(otu_id => `OTU ${otu_id}`).reverse(),
@@ -25,7 +25,7 @@ function buildChart(patientID) {
             },
         }]
 
-        var bar_layout = {
+        let bar_layout = {
             title: "Top 10 Microbial Species in Belly Buttons",
             xaxis: {title:"Bacteria Sample Values"},
             yaxis: {title:"OTU IDs"}
@@ -33,7 +33,7 @@ function buildChart(patientID) {
 
         Plotly.newPlot('bar', bar_data, bar_layout)
 
-        var bubble_data = [{
+        let bubble_data = [{
 
             x: otu_ids,
 
@@ -48,7 +48,7 @@ function buildChart(patientID) {
             }
         }];
 
-        var layout = {
+        let layout = {
             title: 'Belly Button Samples',
             xaxis: { title: "OTU IDs"},
             yaxis: { title: "Sample Values"}
@@ -56,9 +56,9 @@ function buildChart(patientID) {
 
         Plotly.newPlot('bubble', bubble_data, layout)
 
-        var washFreq = filteredMetadata.wfreq
+        let washFreq = filteredMetadata.wfreq
 
-        var gauge_data = [
+        let gauge_data = [
             {
                 domain: { x: [0,1], y: [0,1]},
                 value: washFreq,
@@ -78,26 +78,28 @@ function buildChart(patientID) {
             }
         ];
 
-        var gauge_layout = { width:500, height: 400, margin: { t: 0 , b: 0 }};
+        let gauge_layout = { width:500, height: 400, margin: { t: 0 , b: 0 }};
 
         Plotly.newPlot('gauge', gauge_data, gauge_layout, );
     }))
 };
 
 function populateDemoInfo(patientID) {
+
     
-    var demographicInfoBox = d3.select('#sample-metadata');
 
     d3.json("samples.json").then(data => {
 
-        var metadata = data.metadata
-        var filteredMetadata = metadata.filter(bacteriaInfo => bacteriaInfo.id == patientID)[0]
-
+        let metadata = data.metadata
+        let filteredMetadata = metadata.filter(bacteriaInfo => bacteriaInfo.id == patientID)
+        let result = filteredMetadata[0];
+        let demographicInfoBox = d3.select('#sample-metadata');
+        demographicInfoBox.html('');
         console.log(filteredMetadata)
-        Object.entries(filteredMetadata).forEach(([key, value]) => {
-            demographicInfoBox.append('p').text(`${key}: ${value}`)
-        })
-    })
+        Object.entries(result).forEach(([key, value]) => {
+            demographicInfoBox.append('h6').text(`${key}: ${value}`)
+        });
+    });
 }
 
 function optionChanged(patientID) {
@@ -110,10 +112,10 @@ function initDashboard() {
     let dropDown  = d3.select('#selDataset')
     d3.json('samples.json').then(data => {
 
-        var patientIDs = data.names;
+        let patientIDs = data.names;
         patientIDs.forEach(patientID => {
             dropDown.append("option").text(patientID).property('value', patientID);
-        });
+        })
         buildChart(patientIDs[0]);
         populateDemoInfo(patientIDs[0]);
     });
